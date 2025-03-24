@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bangor AR Environmental Data</title>
-    <!-- Load A-Frame library for 3D rendering -->
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    <!-- Load AR.js with A-Frame integration for location-based AR -->
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js"></script>
     <style>
-        /* Ensure the scene fills the screen */
         body {
             margin: 0;
             overflow: hidden;
         }
-        /* Optional: Style for a loading message */
         #loading {
             position: absolute;
             top: 50%;
@@ -29,16 +25,13 @@
     </style>
 </head>
 <body>
-    <!-- Loading message until AR initializes -->
     <div id="loading">Loading AR Experience...</div>
 
-    <!-- A-Frame scene with AR.js configuration -->
     <a-scene
         vr-mode-ui="enabled: false"  <!-- Disable VR mode UI as we focus on AR -->
-        arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+        arjs="sourceType: webcam; debugUIEnabled: false;"  
         embedded
     >
-        <!-- Bangor University: Bar-chart representing student satisfaction (imaginary data) -->
         <a-box
             gps-entity-place="latitude: 53.227390; longitude: -4.129263"
             width="1"
@@ -52,7 +45,7 @@
             value="Bangor University\nStudent Satisfaction: 85%"
             color="black"
             align="center"
-            position="0 2.5 0"
+            position="0 2 0"  <!-- Lowered from 2.5 to 2 for better visibility -->
             scale="1 1 1"
         ></a-text>
 
@@ -63,6 +56,7 @@
             height="1"
             material="color: white; opacity: 0.9"
             position="0 1.5 0"
+            rotation="-90 0 0"  <!-- Added rotation to make it flat and face upward -->
         >
             <a-text
                 value="Bangor Cathedral\nFounded: 525 AD"
@@ -87,7 +81,7 @@
             value="Garth Pier\nTourists: 10,000/year"
             color="black"
             align="center"
-            position="0 3.5 0"
+            position="0 3 0"  <!-- Lowered from 3.5 to 3 for better visibility -->
             scale="1 1 1"
         ></a-text>
 
@@ -95,11 +89,10 @@
         <a-camera gps-camera rotation-reader></a-camera>
     </a-scene>
 
-    <!-- Script to hide loading message once scene loads -->
     <script>
-        window.onload = function() {
+        document.querySelector('a-scene').addEventListener('loaded', function() {
             document.getElementById('loading').style.display = 'none';
-        };
+        });
     </script>
 </body>
 </html>
